@@ -16,7 +16,20 @@ where idCliente = '{$idCliente}'
 
 $rs = mysqli_query($conexao,$sql);
 
-echo "<p>Registro atualizado com sucesso!</p>";
-
+if ($rs){
+    ?>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Atualizando registro</h4>
+        <p>Registro atualizado com sucesso!</p>
+        <p>Clique <a href="index.php?menu=clientes" class="alert-link">aqui</a> para a lista de clientes.</p>
+</div>
+<?php
+} else {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p>Erro ao editar o registro do cliente.</p>
+    </div>
+    <?php
+}
 
 ?>
