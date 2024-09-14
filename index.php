@@ -1,5 +1,33 @@
 <?php
 include_once("./db/conexao.php");
+session_start();
+
+if (isset($_SESSION["loginUser"]) and isset($_SESSION["senhaUser"])) {
+    $loginUser = $_SESSION["loginUser"];
+    $senhaUser = $_SESSION["senhaUser"];
+    $nomeUser = $_SESSION["nomeUser"];
+
+    $sql = "SELECT * FROM tbusuarios WHERE loginUser = '{$loginUser}' and senhaUser = '{$senhaUser}'";
+    $rs = mysqli_query($conexao, $sql);
+    $dados = mysqli_fetch_assoc($rs);
+    $linha = mysqli_num_rows($rs);
+
+    if ($linha == 0){
+        session_unset();
+        session_destroy();
+        header('Location: login.php');
+        exit();
+    }
+} else {
+    header('Location: login.php');
+    exit();
+}
+
+if (isset($_GET['menu'])) {
+    $menu = $_GET['menu'];
+} else {
+    $menu = "";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
